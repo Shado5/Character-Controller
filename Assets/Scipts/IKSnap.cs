@@ -38,17 +38,27 @@ public class IKSnap : MonoBehaviour
     [Tooltip("Adjust the sphere radius to control the area of detection.")]
     public float sphereRadius = 0.1f;
 
+    [Header("Interactive Limb Movement")]
+    public bool interactiveMoveEnabled = true;
+    public KeyCode moveLeftLimbKey = KeyCode.L;
+    public KeyCode moveRightLimbKey = KeyCode.R;
+
+    private bool movingLeftHand;
+    private bool movingRightHand;
+
+    // New variables to store the currently targeted hold for each hand
+    private GameObject leftHandTargetHold;
+    private GameObject rightHandTargetHold;
+
     #endregion
 
     void Start()
     {
-        // Get the Animator component at the start
         anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
-        // Perform sphere casts to detect holds and update IK targets
         CheckLeftHandIK();
         CheckRightHandIK();
         CheckLeftFootIK();
@@ -57,12 +67,24 @@ public class IKSnap : MonoBehaviour
 
     void Update()
     {
-        // No longer visualizing sphere casts in Update
+        if (interactiveMoveEnabled)
+        {
+            CheckLimbMovementInput();
+        }
+
+        if (movingLeftHand)
+        {
+            MoveLimbInteractively(AvatarIKGoal.LeftHand);
+        }
+
+        if (movingRightHand)
+        {
+            MoveLimbInteractively(AvatarIKGoal.RightHand);
+        }
     }
 
     void OnAnimatorIK()
     {
-        // Apply IK positions and rotations if enabled
         if (useIk)
         {
             ApplyIK(AvatarIKGoal.LeftHand, leftHandIK, leftHandPos, leftHandRot);
@@ -74,7 +96,6 @@ public class IKSnap : MonoBehaviour
 
     #region Helper Methods
 
-    // Sphere cast and update left hand IK data
     void CheckLeftHandIK()
     {
         RaycastHit hit;
@@ -85,15 +106,17 @@ public class IKSnap : MonoBehaviour
                 leftHandIK = true;
                 leftHandPos = hit.point - leftHandOffset;
                 leftHandRot = Quaternion.FromToRotation(-Vector3.up, hit.normal);
+
+                leftHandTargetHold = hit.transform.gameObject;
             }
         }
         else
         {
             leftHandIK = false;
+            leftHandTargetHold = null;
         }
     }
 
-    // Sphere cast and update right hand IK data
     void CheckRightHandIK()
     {
         RaycastHit hit;
@@ -104,15 +127,17 @@ public class IKSnap : MonoBehaviour
                 rightHandIK = true;
                 rightHandPos = hit.point - rightHandOffset;
                 rightHandRot = Quaternion.FromToRotation(-Vector3.up, hit.normal);
+
+                rightHandTargetHold = hit.transform.gameObject;
             }
         }
         else
         {
             rightHandIK = false;
+            rightHandTargetHold = null;
         }
     }
 
-    // Sphere cast and update left foot IK data
     void CheckLeftFootIK()
     {
         RaycastHit hit;
@@ -127,7 +152,6 @@ public class IKSnap : MonoBehaviour
         }
     }
 
-    // Sphere cast and update right foot IK data
     void CheckRightFootIK()
     {
         RaycastHit hit;
@@ -142,17 +166,14 @@ public class IKSnap : MonoBehaviour
         }
     }
 
-    // Visualize sphere casts for debugging
     void OnDrawGizmos()
     {
-        // Visualize sphere casts for each IK target
-        DrawSphereCastVisualization(transform.position + new Vector3(0.0f, 2.0f, 0.5f), -transform.up + new Vector3(-0.5f, -0.0f, 0.0f), Color.green);
-        DrawSphereCastVisualization(transform.position + new Vector3(0.0f, 2.0f, 0.5f), -transform.up + new Vector3(0.5f, -0.0f, 0.0f), Color.red);
+        DrawSphereCastVisualization(transform.position + new Vector3(0.0f, 2.0f, 0.5f), -transform.up + new Vector3(-0.7f, -0.0f, 0.0f), Color.green);
+        DrawSphereCastVisualization(transform.position + new Vector3(0.0f, 2.0f, 0.5f), -transform.up + new Vector3(0.7f, -0.0f, 0.0f), Color.red);
         DrawSphereCastVisualization(transform.position + new Vector3(-0.1f, 0.5f, 0.0f), transform.forward, Color.blue);
         DrawSphereCastVisualization(transform.position + new Vector3(0.1f, 0.5f, 0.0f), transform.forward, Color.cyan);
     }
 
-    // Visualize a sphere cast and draw a wireframe sphere if hit
     void DrawSphereCastVisualization(Vector3 origin, Vector3 direction, Color color)
     {
         RaycastHit hit;
@@ -163,10 +184,8 @@ public class IKSnap : MonoBehaviour
         }
     }
 
-    // Apply IK positions and rotations to the animator
     void ApplyIK(AvatarIKGoal goal, bool isIKActive, Vector3 position, Quaternion rotation)
     {
-        // Apply IK if the target is active
         if (isIKActive)
         {
             anim.SetIKPositionWeight(goal, 1f);
@@ -174,6 +193,112 @@ public class IKSnap : MonoBehaviour
 
             anim.SetIKRotationWeight(goal, 1f);
             anim.SetIKRotation(goal, rotation);
+        }
+    }
+
+    void CheckLimbMovementInput()
+    {
+        if (Input.GetKeyDown(moveLeftLimbKey))
+        {
+            movingLeftHand = !movingLeftHand;
+            if (movingLeftHand)
+            {
+                movingRightHand = false;
+            }
+        }
+
+        if (Input.GetKeyDown(moveRightLimbKey))
+        {
+            movingRightHand = !movingRightHand;
+            if (movingRightHand)
+            {
+                movingLeftHand = false;
+            }
+        }
+    }
+
+    void MoveLimbInteractively(AvatarIKGoal goal)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            if (goal == AvatarIKGoal.LeftHand)
+            {
+                leftHandPos = hit.point - leftHandOffset;
+                leftHandRot = Quaternion.FromToRotation(-Vector3.up, hit.normal);
+            }
+            else if (goal == AvatarIKGoal.RightHand)
+            {
+                rightHandPos = hit.point - rightHandOffset;
+                rightHandRot = Quaternion.FromToRotation(-Vector3.up, hit.normal);
+            }
+
+            if (Input.GetMouseButton(0)) // Check if the left mouse button is held down
+            {
+                // Continue updating limb position while dragging
+                SnapToClosestHold(goal, hit);
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                // Snap to closest hold when the mouse button is released
+                SnapToClosestHold(goal, hit);
+                // Set the limb movement boolean to false
+                if (goal == AvatarIKGoal.LeftHand)
+                {
+                    movingLeftHand = false;
+                }
+                else if (goal == AvatarIKGoal.RightHand)
+                {
+                    movingRightHand = false;
+                }
+            }
+        }
+    }
+
+    void SnapToClosestHold(AvatarIKGoal goal, RaycastHit hit)
+    {
+        GameObject targetHold = goal == AvatarIKGoal.LeftHand ? leftHandTargetHold : rightHandTargetHold;
+
+        if (targetHold != null && targetHold.CompareTag("holds"))
+        {
+            Vector3 limbPosition = goal == AvatarIKGoal.LeftHand ? leftHandPos : rightHandPos;
+            Vector3 limbOffset = goal == AvatarIKGoal.LeftHand ? leftHandOffset : rightHandOffset;
+
+            RaycastHit[] hits = Physics.SphereCastAll(limbPosition + limbOffset, sphereRadius, -transform.up, 1f);
+
+            if (hits.Length > 0)
+            {
+                float closestDistance = Mathf.Infinity;
+                Vector3 snapPosition = Vector3.zero;
+
+                foreach (RaycastHit holdHit in hits)
+                {
+                    if (holdHit.transform.gameObject.CompareTag("holds"))
+                    {
+                        float distance = Vector3.Distance(limbPosition, holdHit.point);
+                        if (distance < closestDistance)
+                        {
+                            closestDistance = distance;
+                            snapPosition = holdHit.point - limbOffset;
+                        }
+                    }
+                }
+
+                if (closestDistance < Mathf.Infinity)
+                {
+                    if (goal == AvatarIKGoal.LeftHand)
+                    {
+                        leftHandPos = snapPosition;
+                        leftHandRot = Quaternion.FromToRotation(-Vector3.up, hit.normal);
+                    }
+                    else if (goal == AvatarIKGoal.RightHand)
+                    {
+                        rightHandPos = snapPosition;
+                        rightHandRot = Quaternion.FromToRotation(-Vector3.up, hit.normal);
+                    }
+                }
+            }
         }
     }
 
