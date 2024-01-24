@@ -16,12 +16,12 @@ public class Holds : MonoBehaviour
         currentFixedJoint = fixedJoint;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("holds"))
+        if (other.gameObject.CompareTag("holds"))
         {
-            // Check if the collided object has a Rigidbody component
-            Rigidbody collidedRigidbody = collision.collider.GetComponent<Rigidbody>();
+            // Check if the other object has a Rigidbody component
+            Rigidbody collidedRigidbody = other.GetComponent<Rigidbody>();
 
             // If there is a Rigidbody
             if (collidedRigidbody != null)
@@ -30,7 +30,6 @@ public class Holds : MonoBehaviour
                 AttachLimbToHold(collidedRigidbody);
             }
         }
-
     }
 
     private void AttachLimbToHold(Rigidbody limbRigidbody)
