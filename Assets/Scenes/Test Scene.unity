@@ -1477,6 +1477,10 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 9.94
       objectReference: {fileID: 0}
+    - target: {fileID: 3266404594401635259, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_LowTwistLimit.limit
+      value: -43.132996
+      objectReference: {fileID: 0}
     - target: {fileID: 3266404594401635260, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
       value: 3.16
@@ -1485,6 +1489,14 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 9.94
       objectReference: {fileID: 0}
+    - target: {fileID: 3266404594442105552, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_LowTwistLimit.limit
+      value: -6.466902
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404594442105552, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_HighTwistLimit.limit
+      value: 108.68048
+      objectReference: {fileID: 0}
     - target: {fileID: 3266404594442105583, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
       value: 3.16
@@ -1492,6 +1504,10 @@ PrefabInstance:
     - target: {fileID: 3266404594442105583, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_AngularDrag
       value: 9.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404594704717982, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_LowTwistLimit.limit
+      value: -41.537327
       objectReference: {fileID: 0}
     - target: {fileID: 3266404594704717983, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
@@ -1525,6 +1541,10 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 9.94
       objectReference: {fileID: 0}
+    - target: {fileID: 3266404595333019729, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_Swing1Limit.limit
+      value: 118.68791
+      objectReference: {fileID: 0}
     - target: {fileID: 3266404595399762968, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
       value: 3.16
@@ -1532,6 +1552,10 @@ PrefabInstance:
     - target: {fileID: 3266404595399762968, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_AngularDrag
       value: 9.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595399762969, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_Swing2Limit.limit
+      value: 177
       objectReference: {fileID: 0}
     - target: {fileID: 3266404595516404090, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
@@ -1548,6 +1572,10 @@ PrefabInstance:
     - target: {fileID: 3266404595701112409, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_AngularDrag
       value: 9.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595701112410, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_HighTwistLimit.limit
+      value: 115.17444
       objectReference: {fileID: 0}
     - target: {fileID: 5600685924148617314, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
