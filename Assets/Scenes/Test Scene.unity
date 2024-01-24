@@ -1543,7 +1543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3266404595333019729, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Swing1Limit.limit
-      value: 118.68791
+      value: 98.62604
       objectReference: {fileID: 0}
     - target: {fileID: 3266404595399762968, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
@@ -1554,8 +1554,28 @@ PrefabInstance:
       value: 9.94
       objectReference: {fileID: 0}
     - target: {fileID: 3266404595399762969, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_Axis.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595399762969, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_SwingAxis.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595399762969, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_Swing1Limit.limit
+      value: 98.62604
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595399762969, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Swing2Limit.limit
-      value: 177
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595399762969, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_LowTwistLimit.limit
+      value: -70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595399762969, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_HighTwistLimit.limit
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3266404595516404090, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
