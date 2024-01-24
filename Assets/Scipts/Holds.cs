@@ -1,31 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class Holds : MonoBehaviour
 {
+    private FixedJoint currentFixedJoint;
+
+    public FixedJoint CurrentFixedJoint
+    {
+        get { return currentFixedJoint; }
+    }
+
+    public void SetCurrentFixedJoint(FixedJoint fixedJoint)
+    {
+        currentFixedJoint = fixedJoint;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the collided object has a FixedJoint component
-        FixedJoint fixedJoint = collision.collider.GetComponent<FixedJoint>();
+        // Check if the collided object has a Rigidbody component
+        Rigidbody collidedRigidbody = collision.collider.GetComponent<Rigidbody>();
 
-        //if there is a fixed joint
-        if (fixedJoint != null)
+        // If there is a Rigidbody
+        if (collidedRigidbody != null)
         {
-            // Attach the character to the object with the FixedJoint
-            AttachToFixedJoint(fixedJoint);
+            // Attach the limb to the hold with a FixedJoint
+            AttachLimbToHold(collidedRigidbody);
         }
     }
-    private void AttachToFixedJoint(FixedJoint fixedJoint)
+
+    private void AttachLimbToHold(Rigidbody limbRigidbody)
     {
-        // Get the Rigidbody of the character
-        Rigidbody characterRigidbody = GetComponent<Rigidbody>();
-
-        if (characterRigidbody != null)
+        if (limbRigidbody != null && currentFixedJoint == null)
         {
-            fixedJoint.connectedBody = characterRigidbody;
+            // Create a FixedJoint and connect the limb to the hold
+            FixedJoint fixedJoint = gameObject.AddComponent<FixedJoint>();
+            fixedJoint.connectedBody = limbRigidbody;
+            SetCurrentFixedJoint(fixedJoint);
         }
-
     }
 }
