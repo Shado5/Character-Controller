@@ -89,9 +89,19 @@ public class RagdollLimbControl : MonoBehaviour
 
     void DisconnectLimbFromHold(Transform limb, Holds currentHold)
     {
-        // Disconnect the limb from the hold
-        Destroy(currentHold.CurrentFixedJoint);
-        currentHold.SetCurrentFixedJoint(null);
+        FixedJoint fixedJoint = currentHold.CurrentFixedJoint;
+
+        if (fixedJoint != null)
+        {
+            // Detach the limb from the hold by setting the connected body to null
+            fixedJoint.connectedBody = null;
+
+            // Set the currentFixedJoint to null
+            currentHold.SetCurrentFixedJoint(null);
+
+            // Destroy the FixedJoint component after a delay to allow physics to update
+            Destroy(fixedJoint, 0.1f);
+        }
     }
 
     void AttachLimbToHold(KeyCode key)
@@ -99,11 +109,25 @@ public class RagdollLimbControl : MonoBehaviour
         Transform limb = GetLimbByKey(key);
         Holds hold = limb.GetComponentInChildren<Holds>();
 
-        if (hold != null && hold.CurrentFixedJoint == null)
+        if (hold != null)
         {
-            FixedJoint fixedJoint = hold.gameObject.AddComponent<FixedJoint>();
-            fixedJoint.connectedBody = limb.GetComponent<Rigidbody>();
-            hold.SetCurrentFixedJoint(fixedJoint);
+            // Check if the hold has the correct tag
+            if (hold.gameObject.CompareTag("holds"))
+            {
+                // Create a FixedJoint if it doesn't exist
+                if (hold.CurrentFixedJoint == null)
+                {
+                    FixedJoint fixedJoint = hold.gameObject.AddComponent<FixedJoint>();
+                    hold.SetCurrentFixedJoint(fixedJoint);
+                }
+
+                // Connect the limb to the hold with the existing FixedJoint
+                hold.CurrentFixedJoint.connectedBody = limb.GetComponent<Rigidbody>();
+            }
+            else
+            {
+                Debug.LogWarning("Attempted to attach limb to an object without the 'holds' tag.");
+            }
         }
     }
 

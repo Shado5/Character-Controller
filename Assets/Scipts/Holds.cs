@@ -18,15 +18,19 @@ public class Holds : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the collided object has a Rigidbody component
-        Rigidbody collidedRigidbody = collision.collider.GetComponent<Rigidbody>();
-
-        // If there is a Rigidbody
-        if (collidedRigidbody != null)
+        if (collision.gameObject.CompareTag("holds"))
         {
-            // Attach the limb to the hold with a FixedJoint
-            AttachLimbToHold(collidedRigidbody);
+            // Check if the collided object has a Rigidbody component
+            Rigidbody collidedRigidbody = collision.collider.GetComponent<Rigidbody>();
+
+            // If there is a Rigidbody
+            if (collidedRigidbody != null)
+            {
+                // Attach the limb to the hold with a FixedJoint
+                AttachLimbToHold(collidedRigidbody);
+            }
         }
+
     }
 
     private void AttachLimbToHold(Rigidbody limbRigidbody)
