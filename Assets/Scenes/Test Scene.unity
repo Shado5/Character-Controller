@@ -1461,6 +1461,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 322187680361647734, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: limbs
+      objectReference: {fileID: 0}
     - target: {fileID: 697115577104657614, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
       value: 3.16
@@ -1468,6 +1472,22 @@ PrefabInstance:
     - target: {fileID: 697115577104657614, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_AngularDrag
       value: 9.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 1465313247201010727, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: limbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431806862479605278, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: limbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2676504167434467631, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: limbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2935597938087544780, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: limbs
       objectReference: {fileID: 0}
     - target: {fileID: 3266404594400749843, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
@@ -1601,6 +1621,18 @@ PrefabInstance:
       propertyPath: m_HighTwistLimit.limit
       value: 115.17444
       objectReference: {fileID: 0}
+    - target: {fileID: 3514748899285399057, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: limbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732813650325625658, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: limbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 5329166772827985086, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: limbs
+      objectReference: {fileID: 0}
     - target: {fileID: 5600685924148617314, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
       value: 3.16
@@ -1668,6 +1700,14 @@ PrefabInstance:
     - target: {fileID: 7120732703238497011, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_AngularDrag
       value: 9.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 8384757480253612915, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: limbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 8385289302333804237, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: limbs
       objectReference: {fileID: 0}
     - target: {fileID: 8533766434949223640, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag

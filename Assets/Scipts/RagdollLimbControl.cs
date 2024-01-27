@@ -1,89 +1,89 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RagdollLimbControl : MonoBehaviour
 {
-    [Header("Left Arm")]
-    public Transform leftArm;
-    public float leftArmMoveSpeed = 5f;
+    private Transform selectedLimb;
+    private bool isMovingLimb;
 
-    [Header("Right Arm")]
-    public Transform rightArm;
-    public float rightArmMoveSpeed = 5f;
-
-    [Header("Left Leg")]
-    public Transform leftLeg;
-    public float leftLegMoveSpeed = 5f;
-
-    [Header("Right Leg")]
-    public Transform rightLeg;
-    public float rightLegMoveSpeed = 5f;
-
-    private bool movingLeftArm;
-    private bool movingRightArm;
-    private bool movingLeftLeg;
-    private bool movingRightLeg;
+    public float moveSpeed = 5f;
 
     void Update()
     {
         CheckInput();
 
-        MoveLimbInteractively(leftArm, movingLeftArm, leftArmMoveSpeed);
-        MoveLimbInteractively(rightArm, movingRightArm, rightArmMoveSpeed);
-        MoveLimbInteractively(leftLeg, movingLeftLeg, leftLegMoveSpeed);
-        MoveLimbInteractively(rightLeg, movingRightLeg, rightLegMoveSpeed);
+        if (isMovingLimb && selectedLimb != null)
+        {
+            MoveLimbInteractively(selectedLimb, moveSpeed);
+        }
     }
 
     void CheckInput()
     {
-        // Handle input for limb movement
-        HandleLimbInput(KeyCode.Alpha1, ref movingLeftArm);
-        HandleLimbInput(KeyCode.Alpha2, ref movingRightArm);
-        HandleLimbInput(KeyCode.Alpha3, ref movingLeftLeg);
-        HandleLimbInput(KeyCode.Alpha4, ref movingRightLeg);
-    }
-
-    void HandleLimbInput(KeyCode key, ref bool movingFlag)
-    {
-        if (Input.GetKeyDown(key))
+        // Handle input for limb selection and deselection
+        if (Input.GetMouseButtonDown(0))
         {
-            movingFlag = true;
-        }
-
-        if (Input.GetKeyUp(key))
-        {
-            movingFlag = false;
-            AttachLimbToHold(key);
-        }
-    }
-
-    void MoveLimbInteractively(Transform limb, bool isMoving, float moveSpeed)
-    {
-        Holds currentHold = limb.GetComponentInChildren<Holds>();
-
-        if (isMoving)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (!isMovingLimb)
             {
-                Vector3 targetPosition = hit.point;
-                Vector3 direction = (targetPosition - limb.position).normalized;
-                Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-
-                // Check if the limb is connected to a hold
-                if (currentHold != null && currentHold.CurrentFixedJoint != null)
-                {
-                    // Disconnect the limb from the current hold
-                    DisconnectLimbFromHold(limb, currentHold);
-                }
-
-                // Move the limb
-                limb.position = Vector3.MoveTowards(limb.position, targetPosition, moveSpeed * Time.deltaTime);
-                limb.rotation = Quaternion.RotateTowards(limb.rotation, targetRotation, moveSpeed * Time.deltaTime);
+                // Select limb when left mouse button is clicked
+                SelectLimb();
             }
+            else
+            {
+                // Deselect limb when left mouse button is clicked again
+                DeselectLimb();
+            }
+        }
+    }
+
+    void SelectLimb()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.CompareTag("limbs"))
+            {
+                // Check if the hit object has a limb
+                Transform limb = hit.collider.GetComponent<Transform>();
+
+                if (limb != null)
+                {
+                    // Set the selected limb
+                    selectedLimb = limb;
+                    isMovingLimb = true;
+
+                    // Detach the limb from the hold if it's connected
+                    Holds currentHold = limb.GetComponentInChildren<Holds>();
+                    if (currentHold != null && currentHold.CurrentFixedJoint != null)
+                    {
+                        DisconnectLimbFromHold(limb, currentHold);
+                    }
+                }
+            }
+        }
+    }
+
+    void DeselectLimb()
+    {
+        isMovingLimb = false;
+        selectedLimb = null;
+    }
+
+    void MoveLimbInteractively(Transform limb, float moveSpeed)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            Vector3 targetPosition = hit.point;
+            Vector3 direction = (targetPosition - limb.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+            // Move the limb
+            limb.position = Vector3.MoveTowards(limb.position, targetPosition, moveSpeed * Time.deltaTime);
+            limb.rotation = Quaternion.RotateTowards(limb.rotation, targetRotation, moveSpeed * Time.deltaTime);
         }
     }
 
@@ -101,50 +101,6 @@ public class RagdollLimbControl : MonoBehaviour
 
             // Destroy the FixedJoint component after a delay to allow physics to update
             Destroy(fixedJoint, 0.1f);
-        }
-    }
-
-    void AttachLimbToHold(KeyCode key)
-    {
-        Transform limb = GetLimbByKey(key);
-        Holds hold = limb.GetComponentInChildren<Holds>();
-
-        if (hold != null)
-        {
-            // Check if the hold has the correct tag
-            if (hold.gameObject.CompareTag("holds"))
-            {
-                // Create a FixedJoint if it doesn't exist
-                if (hold.CurrentFixedJoint == null)
-                {
-                    FixedJoint fixedJoint = hold.gameObject.AddComponent<FixedJoint>();
-                    hold.SetCurrentFixedJoint(fixedJoint);
-                }
-
-                // Connect the limb to the hold with the existing FixedJoint
-                hold.CurrentFixedJoint.connectedBody = limb.GetComponent<Rigidbody>();
-            }
-            else
-            {
-                Debug.LogWarning("Attempted to attach limb to an object without the 'holds' tag.");
-            }
-        }
-    }
-
-    Transform GetLimbByKey(KeyCode key)
-    {
-        switch (key)
-        {
-            case KeyCode.Alpha1:
-                return leftArm;
-            case KeyCode.Alpha2:
-                return rightArm;
-            case KeyCode.Alpha3:
-                return leftLeg;
-            case KeyCode.Alpha4:
-                return rightLeg;
-            default:
-                return null;
         }
     }
 }
