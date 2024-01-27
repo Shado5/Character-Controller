@@ -1490,6 +1490,10 @@ PrefabInstance:
       value: 9.94
       objectReference: {fileID: 0}
     - target: {fileID: 3266404594442105552, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_Swing1Limit.limit
+      value: 83.69518
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404594442105552, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_LowTwistLimit.limit
       value: -6.466902
       objectReference: {fileID: 0}
