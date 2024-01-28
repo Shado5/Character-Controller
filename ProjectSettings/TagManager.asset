@@ -8,6 +8,7 @@ TagManager:
   - RightHand
   - holds
   - limbs
+  - Spine
   layers:
   - Default
   - TransparentFX

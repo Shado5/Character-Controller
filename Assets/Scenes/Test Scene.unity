@@ -882,7 +882,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996359495}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.093, y: -0.003, z: -0.58699965}
+  m_LocalPosition: {x: 0.06, y: -0.003, z: -0.58699965}
   m_LocalScale: {x: 0.025602518, y: 0.12569813, z: 0.02418297}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1446,7 +1446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874981221}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.034, y: 0.166, z: -0.58699965}
+  m_LocalPosition: {x: 0.0222, y: 0.152, z: -0.58699965}
   m_LocalScale: {x: 0.025602518, y: 0.12569813, z: 0.02418297}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1585,6 +1585,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 69518300631879263, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: Spine
+      objectReference: {fileID: 0}
     - target: {fileID: 322187680361647734, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_TagString
       value: limbs
@@ -1673,6 +1677,10 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 9.94
       objectReference: {fileID: 0}
+    - target: {fileID: 3266404595044092192, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: maxSlingshotForce
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3266404595212712513, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
       value: 3.16
@@ -1680,6 +1688,22 @@ PrefabInstance:
     - target: {fileID: 3266404595212712513, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_AngularDrag
       value: 9.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595212712515, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_Size.y
+      value: 0.71616983
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595212712515, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_Center.x
+      value: -0.00000035762778
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595212712515, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_Center.y
+      value: 0.17024684
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266404595212712515, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_Center.z
+      value: -0.023194427
       objectReference: {fileID: 0}
     - target: {fileID: 3266404595333019728, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
@@ -1753,6 +1777,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: limbs
       objectReference: {fileID: 0}
+    - target: {fileID: 5092293270472158928, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: Spine
+      objectReference: {fileID: 0}
     - target: {fileID: 5329166772827985086, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_TagString
       value: limbs
@@ -1825,6 +1853,14 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 9.94
       objectReference: {fileID: 0}
+    - target: {fileID: 7273778683950410632, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: Spine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269712839002795294, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: Spine
+      objectReference: {fileID: 0}
     - target: {fileID: 8384757480253612915, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_TagString
       value: limbs
@@ -1832,6 +1868,10 @@ PrefabInstance:
     - target: {fileID: 8385289302333804237, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_TagString
       value: limbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 8393655739171993008, guid: f94887489d100a44382454c859388066, type: 3}
+      propertyPath: m_TagString
+      value: Spine
       objectReference: {fileID: 0}
     - target: {fileID: 8533766434949223640, guid: f94887489d100a44382454c859388066, type: 3}
       propertyPath: m_Drag
