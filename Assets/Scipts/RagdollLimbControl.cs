@@ -155,9 +155,6 @@ public class RagdollLimbControl : MonoBehaviour
         // Check if the selected limb is the spine
         if (limb.CompareTag("Spine"))
         {
-            /* // Get the count of limbs attached to holds
-            int attachedLimbsCount = CountLimbsAttachedToHolds(); */
-
             // Check if there are two or more limbs attached to holds
             if (attachedLimbsCount >= 2)
             {
@@ -208,25 +205,7 @@ public class RagdollLimbControl : MonoBehaviour
             }
         }
     }
-    /* // Helper method to count the number of limbs attached to holds
-    public int CountLimbsAttachedToHolds()
-    {
-        int count = 0;
 
-        // Iterate through all limbs and count the ones attached to holds
-        foreach (var limb in FindObjectsOfType<RagdollLimbControl>())
-        {
-            Holds currentHold = limb.GetComponentInChildren<Holds>();
-
-            if (currentHold != null && currentHold.CurrentFixedJoint != null)
-            {
-                count++;
-            }
-        }
-
-        return count;
-    }
- */
     // Method to disconnect the limb from the hold it may be attached to
     void DisconnectLimbFromHold(Transform limb, Holds currentHold)
     {
