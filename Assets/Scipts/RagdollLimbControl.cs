@@ -14,6 +14,9 @@ public class RagdollLimbControl : MonoBehaviour
     //variable to control the maximum slingshot force
     public float maxSlingshotForce = 10f;
 
+    public GameObject arrowPrefab;
+    private GameObject arrowInstance;
+
     // Update is called once per frame
     void Update()
     {
@@ -23,9 +26,53 @@ public class RagdollLimbControl : MonoBehaviour
         if (isMovingLimb && selectedLimb != null)
         {
             MoveLimbInteractively(selectedLimb, moveSpeed);
+            UpdateArrowDirection(selectedLimb);
         }
     }
 
+    void UpdateArrowDirection(Transform limb)
+    {
+        // Check if the arrow is instantiated
+        if (arrowInstance != null)
+        {
+            // Calculate the direction from the spine to the mouse position
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                // Reverse the direction vector
+                Vector3 targetDirection = (limb.position - hit.point).normalized;
+
+                // Calculate the rotation to point the arrow in the calculated direction
+                Quaternion arrowRotation = Quaternion.LookRotation(Vector3.forward, targetDirection);
+
+                // Set only the Z-component of the rotation
+                arrowInstance.transform.rotation = Quaternion.Euler(0f, 0f, arrowRotation.eulerAngles.z);
+            }
+        }
+    }
+
+
+
+    // Method to instantiate the arrow when the spine is selected
+    void InstantiateArrow(Transform spine)
+    {
+        // Instantiate the arrow prefab
+        arrowInstance = Instantiate(arrowPrefab, spine.position + new Vector3(0f, 0f, -0.20f), Quaternion.identity);
+
+        // Optionally, you can parent the arrow to the spine for easier management
+        arrowInstance.transform.parent = spine;
+    }
+
+    // Method to destroy the arrow when the spine is deselected
+    void DestroyArrow()
+    {
+        if (arrowInstance != null)
+        {
+            Destroy(arrowInstance);
+        }
+    }
     // Method to check user input for limb selection and deselection
     void CheckInput()
     {
@@ -82,6 +129,9 @@ public class RagdollLimbControl : MonoBehaviour
                     // Set the selected limb
                     selectedLimb = limb;
                     isMovingLimb = true;
+
+                    // Instantiate the arrow when the spine is selected
+                    InstantiateArrow(limb);
                 }
             }
         }
@@ -92,6 +142,9 @@ public class RagdollLimbControl : MonoBehaviour
     {
         isMovingLimb = false;
         selectedLimb = null;
+
+        // Destroy the arrow when the spine is deselected
+        DestroyArrow();
     }
 
     // Method to move the selected limb interactively towards the mouse position
