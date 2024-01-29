@@ -259,11 +259,11 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -70
+    limit: -4.6404276
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 10
+    limit: 177
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -352,6 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a12790d486583e408e37319408d1208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdollLimbControl: {fileID: 0}
 --- !u!144 &250574818
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -661,6 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a12790d486583e408e37319408d1208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdollLimbControl: {fileID: 0}
 --- !u!136 &477778691
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -841,6 +843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a12790d486583e408e37319408d1208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdollLimbControl: {fileID: 0}
 --- !u!136 &555009396
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1598,6 +1601,7 @@ MonoBehaviour:
   slingshotSpeed: 1
   maxSlingshotForce: 0.7
   arrowPrefab: {fileID: 4558202219936445543, guid: b8b15eaff65390d438d227bdff9d9ff7, type: 3}
+  attachedLimbsCount: 0
 --- !u!4 &1181246547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8282846890689376211, guid: a45b7e374556c174ba757eeffc0aa78c, type: 3}
@@ -1775,6 +1779,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: limbs
       objectReference: {fileID: 0}
+    - target: {fileID: -121761744564413825, guid: a45b7e374556c174ba757eeffc0aa78c, type: 3}
+      propertyPath: m_TagString
+      value: limbs
+      objectReference: {fileID: 0}
     - target: {fileID: 48844973712467362, guid: a45b7e374556c174ba757eeffc0aa78c, type: 3}
       propertyPath: m_TagString
       value: limbs
@@ -1800,6 +1808,10 @@ PrefabInstance:
       value: limbs
       objectReference: {fileID: 0}
     - target: {fileID: 6036829302101604272, guid: a45b7e374556c174ba757eeffc0aa78c, type: 3}
+      propertyPath: m_TagString
+      value: limbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234495807065063923, guid: a45b7e374556c174ba757eeffc0aa78c, type: 3}
       propertyPath: m_TagString
       value: limbs
       objectReference: {fileID: 0}
@@ -1863,7 +1875,7 @@ CharacterJoint:
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 89.836555
+    limit: 101.26128
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -2213,11 +2225,11 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -13.574076
+    limit: -0.68127525
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 101.086586
+    limit: 115.59792
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -2752,11 +2764,11 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -70
+    limit: -4.5438123
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 10
+    limit: 97.941574
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -2950,6 +2962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a12790d486583e408e37319408d1208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdollLimbControl: {fileID: 0}
 --- !u!4 &2100019310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5180399150121210616, guid: a45b7e374556c174ba757eeffc0aa78c, type: 3}
