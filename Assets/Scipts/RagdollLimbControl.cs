@@ -17,6 +17,8 @@ public class RagdollLimbControl : MonoBehaviour
     public GameObject arrowPrefab;
     private GameObject arrowInstance;
 
+    public int attachedLimbsCount;
+
     // Update is called once per frame
     void Update()
     {
@@ -153,27 +155,39 @@ public class RagdollLimbControl : MonoBehaviour
         // Check if the selected limb is the spine
         if (limb.CompareTag("Spine"))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            /* // Get the count of limbs attached to holds
+            int attachedLimbsCount = CountLimbsAttachedToHolds(); */
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            // Check if there are two or more limbs attached to holds
+            if (attachedLimbsCount >= 2)
             {
-                Vector3 targetPosition = hit.point;
-                Vector3 direction = (targetPosition - limb.position).normalized;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
-                // Calculate force based on the direction and slingshotSpeed
-                Vector3 force = direction * Mathf.Clamp(slingshotSpeed, 0f, maxSlingshotForce);
-
-                // Apply force to the limb's rigidbody
-                Rigidbody limbRigidbody = limb.GetComponent<Rigidbody>();
-                if (limbRigidbody != null)
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
-                    // Clear existing forces before applying the new force
-                    limbRigidbody.velocity = Vector3.zero;
-                    limbRigidbody.angularVelocity = Vector3.zero;
+                    Vector3 targetPosition = hit.point;
+                    Vector3 direction = (targetPosition - limb.position).normalized;
 
-                    limbRigidbody.AddForce(force, ForceMode.Impulse);
+                    // Calculate force based on the direction and slingshotSpeed
+                    Vector3 force = direction * Mathf.Clamp(slingshotSpeed, 0f, maxSlingshotForce);
+
+                    // Apply force to the limb's rigidbody
+                    Rigidbody limbRigidbody = limb.GetComponent<Rigidbody>();
+                    if (limbRigidbody != null)
+                    {
+                        // Clear existing forces before applying the new force
+                        limbRigidbody.velocity = Vector3.zero;
+                        limbRigidbody.angularVelocity = Vector3.zero;
+
+                        limbRigidbody.AddForce(force, ForceMode.Impulse);
+                    }
                 }
+            }
+            // If fewer than two limbs are attached to holds, prevent spine movement
+            else
+            {
+                Debug.Log("Cannot move spine: Need at least two limbs attached to holds. Currently attached: " + attachedLimbsCount);
             }
         }
         else
@@ -194,7 +208,25 @@ public class RagdollLimbControl : MonoBehaviour
             }
         }
     }
+    /* // Helper method to count the number of limbs attached to holds
+    public int CountLimbsAttachedToHolds()
+    {
+        int count = 0;
 
+        // Iterate through all limbs and count the ones attached to holds
+        foreach (var limb in FindObjectsOfType<RagdollLimbControl>())
+        {
+            Holds currentHold = limb.GetComponentInChildren<Holds>();
+
+            if (currentHold != null && currentHold.CurrentFixedJoint != null)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+ */
     // Method to disconnect the limb from the hold it may be attached to
     void DisconnectLimbFromHold(Transform limb, Holds currentHold)
     {
@@ -210,6 +242,11 @@ public class RagdollLimbControl : MonoBehaviour
 
             // Destroy the FixedJoint component after a delay to allow physics to update
             Destroy(fixedJoint, 0.1f);
+
+            if (attachedLimbsCount >= 1)
+            {
+                attachedLimbsCount--;
+            }
         }
     }
 }

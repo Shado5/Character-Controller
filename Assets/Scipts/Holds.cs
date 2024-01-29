@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Holds : MonoBehaviour
@@ -5,10 +6,16 @@ public class Holds : MonoBehaviour
     // Variable to store the current FixedJoint
     private FixedJoint currentFixedJoint;
 
+    public RagdollLimbControl ragdollLimbControl;
+
     // Property to access the current FixedJoint from outside the class
     public FixedJoint CurrentFixedJoint
     {
         get { return currentFixedJoint; }
+    }
+    void Start()
+    {
+        ragdollLimbControl = FindObjectOfType<RagdollLimbControl>();
     }
 
     // Method to set the current FixedJoint
@@ -45,6 +52,7 @@ public class Holds : MonoBehaviour
             FixedJoint fixedJoint = gameObject.AddComponent<FixedJoint>();
             fixedJoint.connectedBody = limbRigidbody;
             SetCurrentFixedJoint(fixedJoint);
+            ragdollLimbControl.attachedLimbsCount++;
 
         }
     }
