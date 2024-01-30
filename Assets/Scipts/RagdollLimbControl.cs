@@ -81,7 +81,7 @@ public class RagdollLimbControl : MonoBehaviour
                 {
                     // Apply the accumulated slingshot force multiplied by the strength factor
                     Vector3 enhancedSlingshotForce = slingshotForce * slingshotStrengthMultiplier;
-                    spineRigidbody.AddForce(enhancedSlingshotForce, ForceMode.Impulse);
+                    spineRigidbody.AddForce(enhancedSlingshotForce);
 
                     // Reset the slingshot force
                     slingshotForce = Vector3.zero;
