@@ -12,6 +12,7 @@ public class RagdollLimbControl : MonoBehaviour
     public float moveSpeed = 5f;
 
     public float slingshotSpeed = 1f;
+    public float constantShootForce = 20.0f;
 
     // Variable to control the maximum slingshot force
     public float maxSlingshotForce = 10f;
@@ -67,7 +68,6 @@ public class RagdollLimbControl : MonoBehaviour
     }
 
     // Method to shoot the player when releasing the spine
-    // Method to shoot the player when releasing the spine
     void ShootPlayer()
     {
         // Check if the selected limb is the spine
@@ -80,18 +80,14 @@ public class RagdollLimbControl : MonoBehaviour
 
                 if (spineRigidbody != null)
                 {
-                    // Increase the slingshot force (adjust the multiplier as needed)
-                    Vector3 enhancedSlingshotForce = slingshotForce * slingshotStrengthMultiplier;
-
-                    // Apply the accumulated slingshot force multiplied by the strength factor
-                    spineRigidbody.AddForce(enhancedSlingshotForce);
-
                     // Reset the slingshot force
                     slingshotForce = Vector3.zero;
 
-                    // Adjust Rigidbody parameters for shooting further
-                    spineRigidbody.drag = 0.5f;  // Adjust the drag value as needed
-                    spineRigidbody.mass = 2.0f;  // Adjust the mass value as needed
+                    // Apply a constant force for shooting (adjust the value as needed)
+                    spineRigidbody.AddForce(Vector3.up * constantShootForce, ForceMode.Impulse);
+
+                    // Debug log to check if the method is getting called
+                    Debug.Log("Shooting Player!");
 
                     // Deselect the limb (release the spine)
                     DeselectLimb();

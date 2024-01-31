@@ -542,6 +542,7 @@ Transform:
   - {fileID: 1874981222}
   - {fileID: 996359496}
   - {fileID: 944166064}
+  - {fileID: 832955828}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1132,6 +1133,121 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3316711520436968442, guid: a45b7e374556c174ba757eeffc0aa78c, type: 3}
   m_PrefabInstance: {fileID: 1280878349}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &832955827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 832955828}
+  - component: {fileID: 832955832}
+  - component: {fileID: 832955831}
+  - component: {fileID: 832955830}
+  - component: {fileID: 832955829}
+  m_Layer: 3
+  m_Name: Cylinder (18)
+  m_TagString: holds
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &832955828
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832955827}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.1555, y: 0.1604, z: -0.58699965}
+  m_LocalScale: {x: 0.03441374, y: 0.13236013, z: 0.031334274}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 417780231}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!54 &832955829
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832955827}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 1
+--- !u!136 &832955830
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832955827}
+  m_Material: {fileID: 13400000, guid: 8648e498885929440af028abcc1dcf8c, type: 2}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5000002
+  m_Height: 2.0000005
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: -0.000015258789, z: -0.00000008940698}
+--- !u!23 &832955831
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832955827}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8e7d090d72f173b4698a4000d0bf35c8, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &832955832
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832955827}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &866474936 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7019176775762475, guid: a45b7e374556c174ba757eeffc0aa78c, type: 3}
@@ -1600,10 +1716,11 @@ MonoBehaviour:
   slingshotForce: {x: 0, y: 0, z: 0}
   moveSpeed: 5
   slingshotSpeed: 10
+  constantShootForce: 200
   maxSlingshotForce: 1
   arrowPrefab: {fileID: 4558202219936445543, guid: b8b15eaff65390d438d227bdff9d9ff7, type: 3}
   attachedLimbsCount: 0
-  slingshotStrengthMultiplier: 1000
+  slingshotStrengthMultiplier: 100
 --- !u!4 &1181246547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8282846890689376211, guid: a45b7e374556c174ba757eeffc0aa78c, type: 3}
