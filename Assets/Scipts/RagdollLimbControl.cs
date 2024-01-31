@@ -67,6 +67,7 @@ public class RagdollLimbControl : MonoBehaviour
     }
 
     // Method to shoot the player when releasing the spine
+    // Method to shoot the player when releasing the spine
     void ShootPlayer()
     {
         // Check if the selected limb is the spine
@@ -79,12 +80,18 @@ public class RagdollLimbControl : MonoBehaviour
 
                 if (spineRigidbody != null)
                 {
-                    // Apply the accumulated slingshot force multiplied by the strength factor
+                    // Increase the slingshot force (adjust the multiplier as needed)
                     Vector3 enhancedSlingshotForce = slingshotForce * slingshotStrengthMultiplier;
+
+                    // Apply the accumulated slingshot force multiplied by the strength factor
                     spineRigidbody.AddForce(enhancedSlingshotForce);
 
                     // Reset the slingshot force
                     slingshotForce = Vector3.zero;
+
+                    // Adjust Rigidbody parameters for shooting further
+                    spineRigidbody.drag = 0.5f;  // Adjust the drag value as needed
+                    spineRigidbody.mass = 2.0f;  // Adjust the mass value as needed
 
                     // Deselect the limb (release the spine)
                     DeselectLimb();
@@ -99,6 +106,7 @@ public class RagdollLimbControl : MonoBehaviour
             }
         }
     }
+
 
 
     // Method to detach all limbs from holds
