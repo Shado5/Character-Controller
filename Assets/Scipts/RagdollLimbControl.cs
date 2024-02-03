@@ -24,7 +24,7 @@ public class RagdollLimbControl : MonoBehaviour
 
     public float slingshotStrengthMultiplier = 2.0f;
 
-    private bool isCooldownActive;
+    public bool isCooldownActive;
     public float holdCooldownDuration = 1.0f;
 
     // Update is called once per frame
@@ -112,7 +112,7 @@ public class RagdollLimbControl : MonoBehaviour
                     DeselectLimb();
 
                     // Delayed detachment of limbs from holds
-                    Invoke("DetachLimbsFromHolds", 0.05f);
+                    Invoke("DetachLimbsFromHolds", 0.1f);
                 }
             }
             else
