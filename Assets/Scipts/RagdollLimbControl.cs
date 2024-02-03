@@ -24,11 +24,27 @@ public class RagdollLimbControl : MonoBehaviour
 
     public float slingshotStrengthMultiplier = 2.0f;
 
+    private bool isCooldownActive;
+    public float holdCooldownDuration = 1.0f;
+
     // Update is called once per frame
     void Update()
     {
         // Check for user input and move the limb if it's selected
         CheckInput();
+
+        if (isCooldownActive)
+        {
+            // If cooldown is active, decrement the cooldown timer
+            holdCooldownDuration -= Time.deltaTime;
+
+            if (holdCooldownDuration <= 0f)
+            {
+                // Cooldown is over, reset variables
+                isCooldownActive = false;
+                holdCooldownDuration = 1.0f; // Reset the cooldown duration
+            }
+        }
 
         if (isMovingLimb && selectedLimb != null)
         {
@@ -41,6 +57,9 @@ public class RagdollLimbControl : MonoBehaviour
             // Release the spine and apply slingshot force
             ShootPlayer();
             isSpineSelected = false;
+
+            // Activate cooldown after releasing the slingshot
+            isCooldownActive = true;
         }
     }
 
@@ -71,7 +90,7 @@ public class RagdollLimbControl : MonoBehaviour
     void ShootPlayer()
     {
         // Check if the selected limb is the spine
-        if (selectedLimb.CompareTag("Spine"))
+        if (selectedLimb.CompareTag("Spine") && !isCooldownActive)
         {
             // Check if there are two or more limbs attached to holds
             if (attachedLimbsCount >= 2)
@@ -93,13 +112,17 @@ public class RagdollLimbControl : MonoBehaviour
                     DeselectLimb();
 
                     // Delayed detachment of limbs from holds
-                    Invoke("DetachLimbsFromHolds", 0.2f);
+                    Invoke("DetachLimbsFromHolds", 0.05f);
                 }
             }
             else
             {
                 Debug.Log("Cannot shoot: Need at least two limbs attached to holds. Currently attached: " + attachedLimbsCount);
             }
+        }
+        else
+        {
+            Debug.Log("Hold cooldown active. Cannot grab holds immediately after releasing the slingshot.");
         }
     }
 
